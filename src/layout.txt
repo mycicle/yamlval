@@ -1,0 +1,55 @@
+Yamlval:
+    How to use:
+        my yaml file:  to be loaded with pyyaml
+            ticker: "AAPL"
+            fields: "Adj Close", "Open"
+            dates: 
+                - start: 01-01-1999
+                - end: 01-01-2020
+            rolling_average: 3
+            rolling_duration: "month"
+            graph_title: "Hello AAPL, lets see your stock data"
+            a_tuple_field: !!python/tuple [1.0,"hello"]
+
+        my schema definition: 
+            import yamlval as yv
+            import yamlval.types as types
+
+            import datetime.datetime as datetime
+
+            from yamlval.schema import YValSchema
+
+            from myenums import Tickers, Fields, Durations
+
+            class MyConfigSchema(YValSchema):
+                ticker = types.Enumeration(Tickers)
+                fields = types.Enumeration(Fields)
+                dates = types.Dict(types.List(datetime, lower="01-01-1995", upper="05-05-2020"))
+                rolling_average = types.Int64(lower=0, upper=10)
+                rolling_duration = types.Enumeration(Durations)
+                graph_title = types.String(lower=0, upper=100)
+                a_tuple_field = types.Tuple(types.Float64, types.String)
+
+            # the "lower" and "upper" keyword arguments refer to the bounds of the object in question. When refering to a "numer-like" object like a datetime or an Int64
+            # they are the minimum and maximum allowable value for the object, if you dont include a bound, that side of the "numer line" is unrestricted
+            # for strings it refers to the minimum and maximum allowable length of the input string, with "lower" being 0 - empty string - by default
+            # Enums define acceptable values for the field, any deviation will throw an error
+
+        myenums:
+            class Tickers(Enum):
+                aapl = "AAPL"
+                msft = "MSFT"
+                tsla = "TSLA"
+                ...
+            
+            class Fields(Enum):
+                adjclose = "Adj Close"
+                close = "Close"
+                open = "Open"
+                ...
+
+            class Durations(Enum):
+                day = "day"
+                month = "month"
+                year = "year"
+                ...
