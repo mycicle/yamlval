@@ -1,10 +1,16 @@
 import yaml
+from enum import Enum
 from schema.YValSchema import YValSchema
-
+from schema.yEnum import yEnum
+class Ticker(Enum):
+    aapl = "AAPL"
+    msft = "MSFT"
+    tsla = "TSLA"
 class Schema(YValSchema):
-    field1 = "Hello"
-    field2 = 1
-    yoho = "yoo hoo!"
+    field1 = str
+    field2 = int
+    yoho = str
+    ticker = yEnum(Ticker)
 
 config = {}
 with open("example.yml") as f:
