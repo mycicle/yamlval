@@ -24,7 +24,11 @@ class YValSchema(metaclass=ABCMeta):
         for field in fields:
             logger.info(raw_vars[field])
             logger.info(type(raw_vars[field]))
-        return {"this":"that"}
+            if not isinstance(raw_config[field], type(raw_vars[field])):
+                raise ValueError(f"\nAccording to schema <{cls.__name__}>, field <{field}> should be type {type(raw_vars[field])} \
+                                                    \nthis not match type found at <config[{field}]> = {type(raw_config[field])}")
+
+        return raw_config
 
     @classmethod
     def validate_and_load(cls, yamlfile: Optional[TextIOWrapper]) -> Dict[str, Any]: 
