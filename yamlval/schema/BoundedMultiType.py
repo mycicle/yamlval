@@ -9,4 +9,7 @@ class BoundedMultiType(BoundedType):
         self.types: List[Any] = []
         for typ in typs:
             self.types.append(typ)
-        
+    
+    @abstractmethod
+    def _check_internal_types(self, inp: Any) -> bool:
+        pass

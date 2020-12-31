@@ -4,10 +4,22 @@ yoho: "y!"
 ticker: NULL
 # shouldntBeHere: 7
 someList: 
-  - "Hello there"
-  - "How are you"
+  - "Hello"
+  - "How"
   - ""
-  - 101
   - 100
-  - 57.0
-  -
+  - 100
+  - 19
+literally:
+anything: {"asdf": 2}
+dicti: 
+  1:  "Hello"
+  "how are you" : 57.
+  "some list": 
+          - "val1"
+          - 2
+          - "MSFTT"
+  # 4:
+  #   - "whatever":
+  #     "f1": 6
+  #     7: 2

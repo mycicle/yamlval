@@ -5,6 +5,7 @@ from typing import Any
 
 class yInt(BoundedType):
     __type__: int = int
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

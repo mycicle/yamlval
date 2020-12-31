@@ -1,5 +1,7 @@
 from .BoundedMultiType import BoundedMultiType
 
+from .yEnum import yEnum
+
 from loguru import logger
 from typing import Any, List
 
@@ -36,7 +38,7 @@ class yList(BoundedMultiType):
 
             if not properInternalTypes:
                 logger.error(f"\n \
-                    The type of item <{item}> is {type(item)}, expected type <{[typ.__type__ for typ in self.types]}>")
+                    The type of item <{item}> is {type(item)}, expected type <{[typ.obj.__name__ if isinstance(typ, yEnum) else type(typ) for typ in self.types ]}>")
         
         return output
 
