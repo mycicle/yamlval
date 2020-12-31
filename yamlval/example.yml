@@ -3,3 +3,11 @@ field2: 100
 yoho: "y!"
 ticker: NULL
 # shouldntBeHere: 7
+someList: 
+  - "Hello there"
+  - "How are you"
+  - ""
+  - 101
+  - 100
+  - 57.0
+  -

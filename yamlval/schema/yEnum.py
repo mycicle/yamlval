@@ -4,6 +4,8 @@ from loguru import logger
 from typing import Set, Any, List
 
 class yEnum(BaseType):
+    __type__: EnumMeta = EnumMeta
+    
     def __init__(self, obj: EnumMeta):
         """
         Initialze the enum for type checking use
@@ -29,6 +31,7 @@ class yEnum(BaseType):
         else return false
         """
         if inp not in self.values:
-            logger.error(f"Input <{inp}> not in <{[var for var in self.get_values()]}> \
-                            see traceback below")
+            logger.error(f"\n \
+                Input <{inp}> not in <{[var for var in self.get_values()]}>\n \
+                see traceback below")
         return inp in self.values

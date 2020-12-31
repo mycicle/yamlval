@@ -7,3 +7,8 @@ class BaseType:
     @abstractmethod
     def matches(self) -> bool:
         pass
+
+    @property
+    @abstractmethod
+    def __type__(self):
+        pass

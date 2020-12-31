@@ -4,6 +4,8 @@ from schema.YValSchema import YValSchema
 from schema.yEnum import yEnum
 from schema.yString import yString
 from schema.yInt import yInt
+from schema.yFloat import yFloat
+from schema.yList import yList
 class Ticker(Enum):
     aapl = "AAPL"
     msft = "MSFT"
@@ -14,6 +16,7 @@ class Schema(YValSchema):
     field2 = yInt(lower=0, upper=100)
     yoho = yString(upper=2)
     ticker = yEnum(Ticker)
+    someList = yList(yString(upper=10), yInt(upper=100), yFloat(upper=20.))
 
 config = {}
 with open("example.yml") as f:

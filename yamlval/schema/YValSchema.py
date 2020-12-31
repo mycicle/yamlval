@@ -3,6 +3,7 @@ import yaml
 from abc import ABCMeta
 from io import TextIOWrapper
 from .yEnum import yEnum
+from .yList import yList
 from loguru import logger
 
 from typing import Dict, Any, Optional
@@ -34,8 +35,8 @@ class YValSchema(metaclass=ABCMeta):
                                         {[var for var in raw_vars[field].get_values()]}")
 
             if not raw_vars[field].matches(raw_config[field]):
-                raise TypeError(f"In field <{field}> expected <{[var for var in raw_vars[field].get_values()] if isinstance(raw_vars[field], yEnum) else type(raw_vars[field])}> \
-                                    \n according to schema <{cls.__name__}>")
+                raise TypeError(
+                        f"In field <{field}> expected valid:\n<{[var for var in raw_vars[field].get_values()] if isinstance(raw_vars[field], yEnum) else [typ for typ in raw_vars[field].types] if isinstance(raw_vars[field], yList) else type(raw_vars[field])}>\naccording to schema <{cls.__name__}>")
 
         return raw_config
 

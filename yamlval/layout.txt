@@ -30,6 +30,7 @@ Yamlval:
                 graph_title = types.String(lower=0, upper=100)
                 a_tuple_field = types.Tuple(types.Float64, types.String)
                 optional_field = types.Optional(types.String)
+                
 
             # the "lower" and "upper" keyword arguments refer to the bounds of the object in question. When refering to a "numer-like" object like a datetime or an Int64
             # they are the minimum and maximum allowable value for the object, if you dont include a bound, that side of the "numer line" is unrestricted
