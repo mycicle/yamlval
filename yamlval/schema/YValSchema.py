@@ -20,9 +20,19 @@ class YValSchema(metaclass=ABCMeta):
     def _validate(cls, raw_config: Dict[str, Any]) -> Dict[str, Any]:
         raw_vars = vars(cls)
         fields = [var for var in list(raw_vars.keys()) if not callable(getattr(cls, var)) and not var.startswith("__") and not var.startswith("_abc")]
-        logger.info(fields)
+        config_fields = [field for field in raw_config.keys()]
+        for field in config_fields:
+            if field not in fields:
+                raise ValueError(f"field <{field}> is defined in the config, but is not properly defnied within schema <{cls.__name__}>. Make sure to use type classes from yval!")
 
         for field in fields:
+            if field not in raw_config:
+                if not isinstance(raw_vars[field], yEnum):
+                    raise TypeError(f"field <{field}> is not defined in config file and {cls.__name__}[{field}] is not a yEnum which accepts 'None' as an input")
+                if not raw_vars[field].matches(None):
+                    raise ValueError(f"field <{field}> is not defined in config file and {cls.__name__}[{field}] is a yEnum, but it does not accept 'None' as an input\nexpected \
+                                        {[var for var in raw_vars[field].get_values()]}")
+
             if not raw_vars[field].matches(raw_config[field]):
                 raise TypeError(f"In field <{field}> expected <{[var for var in raw_vars[field].get_values()] if isinstance(raw_vars[field], yEnum) else type(raw_vars[field])}> \
                                     \n according to schema <{cls.__name__}>")
