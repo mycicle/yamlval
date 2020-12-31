@@ -1,32 +1,31 @@
+from .BaseType import BaseType
 from enum import EnumMeta
 
-from typing import Set, Any
+from typing import Set, Any, List
 
-class yEnum:
+class yEnum(BaseType):
     def __init__(self, obj: EnumMeta):
-        self.obj = obj
-        print(type(self.obj))
+        """
+        Initialze the enum for type checking use
+        This will serve as the range of values the field can be
+        """
+        self.obj: Any = obj
         if not isinstance(self.obj, EnumMeta):
             raise TypeError(f"Object {self.obj.__name__} is not type Enum")
-    
-    def has_value(self, value: str) -> bool:
-        """
-        Return true / false for whether the input is stored as a value in the enum
-        """
-        return value in self.obj.__members__
+
+        self.values: List[Any] = []
+        for field in self.obj:
+            self.values.append(field.value)
 
     def get_values(self) -> Set[Any]:
         """
         Return a list of the values stored within the enum
         """
-        return set(item.value for item in self.obj)
+        return set(self.values)
 
-    def matches(self, obj: Any):
-        if not isinstance(obj, self.__type__):
-            return False
-            # raise TypeError(f"Object {obj.__name__} is type {type(obj)}, expected type {self.__type__}")
-        return True
-
-
-    def __type__(self) -> type:
-        return type(self.obj)
+    def matches(self, inp: Any) -> bool:  
+        """
+        return true if the input is within the enum given at initialization
+        else return false
+        """
+        return inp in self.values

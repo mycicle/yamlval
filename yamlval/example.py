@@ -6,6 +6,7 @@ class Ticker(Enum):
     aapl = "AAPL"
     msft = "MSFT"
     tsla = "TSLA"
+    nothing = None
 class Schema(YValSchema):
     field1 = str
     field2 = int

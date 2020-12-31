@@ -2,7 +2,7 @@ import yaml
 
 from abc import ABCMeta
 from io import TextIOWrapper
-
+from .yEnum import yEnum
 from loguru import logger
 
 from typing import Dict, Any, Optional
@@ -21,12 +21,11 @@ class YValSchema(metaclass=ABCMeta):
         raw_vars = vars(cls)
         fields = [var for var in list(raw_vars.keys()) if not callable(getattr(cls, var)) and not var.startswith("__") and not var.startswith("_abc")]
         logger.info(fields)
+
         for field in fields:
-            logger.info(raw_vars[field])
-            logger.info(type(raw_vars[field]))
-            if not isinstance(raw_config[field], type(raw_vars[field])):
-                raise ValueError(f"\nAccording to schema <{cls.__name__}>, field <{field}> should be type {type(raw_vars[field])} \
-                                                    \nthis not match type found at <config[{field}]> = {type(raw_config[field])}")
+            if not raw_vars[field].matches(raw_config[field]):
+                raise TypeError(f"In field <{field}> expected <{[var for var in raw_vars[field].get_values()] if isinstance(raw_vars[field], yEnum) else type(raw_vars[field])}> \
+                                    \n according to schema <{cls.__name__}>")
 
         return raw_config
 
