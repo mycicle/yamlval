@@ -16,9 +16,9 @@ dicti:
   1:  "Hello"
   "how are you" : 57.
   "some list": 
-          - "val1"
+          - "AAPL"
           - 2
-          - "MSFTT"
+          - "MSFT"
   # 4:
   #   - "whatever":
   #     "f1": 6

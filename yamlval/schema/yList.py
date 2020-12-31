@@ -28,7 +28,7 @@ class yList(BoundedMultiType):
         properInternalTypes: bool = False
         for item in inp:
             for typ in self.types:
-                properInternalTypes = type(item) == typ.__type__
+                properInternalTypes = type(item) in typ.__type__ if isinstance(typ.__type__, list) else type(item) == typ.__type__
                 if not properInternalTypes:
                     continue
                 else:

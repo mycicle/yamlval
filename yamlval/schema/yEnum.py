@@ -4,7 +4,7 @@ from loguru import logger
 from typing import Set, Any, List
 
 class yEnum(BaseType):
-    __type__: EnumMeta = EnumMeta
+    __type__: List[Any] = None
     
     def __init__(self, obj: EnumMeta):
         """
@@ -18,7 +18,15 @@ class yEnum(BaseType):
         self.values: List[Any] = []
         for field in self.obj:
             self.values.append(field.value)
+        
+        self.__type__ = self._get_type()
 
+    def _get_type(self) -> List[Any]:
+        output: List[Any] = []
+        for val in self.values:
+            output.append(type(val))
+        return output
+        
     def get_values(self) -> Set[Any]:
         """
         Return a list of the values stored within the enum
