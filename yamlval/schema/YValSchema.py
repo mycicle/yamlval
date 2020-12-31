@@ -40,13 +40,15 @@ class YValSchema(metaclass=ABCMeta):
         return raw_config
 
     @classmethod
-    def validate_and_load(cls, yamlfile: Optional[TextIOWrapper]) -> Dict[str, Any]: 
+    def validate_and_load(cls, yamlfile: Optional[TextIOWrapper], Loader: Any = yaml.FullLoader) -> Dict[str, Any]: 
         if not isinstance(yamlfile, TextIOWrapper):
             logger.error(f"Your IO obejct is not a StringIO object, type {type(yamlfile)} is unsupported")
         if yamlfile is None:
             logger.error("StringIO object is empty, make sure that your filepath is correct and the file is populated")
 
-        raw_config: Optional[Dict[str, Any]] = yaml.load(yamlfile)
+        # yaml.FullLoader is unsafe. This can be replaced via function argument to an alternative loader
+        # see https://github.com/yaml/pyyaml/wiki/PyYAML-yaml.load(input)-Deprecation for more details
+        raw_config: Optional[Dict[str, Any]] = yaml.load(yamlfile, Loader=Loader)
 
         if raw_config is None:
             logger.error("Unable to read yaml information from the input file, validate that you are using proper yaml syntax")
