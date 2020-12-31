@@ -6,6 +6,8 @@ from typing import Any
 class yString(BoundedType):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if self.lower is None:
+            self.lower = 0
 
     def inbounds(self, inp: Any) -> bool:
         inBounds: bool = True
