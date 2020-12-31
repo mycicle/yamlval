@@ -27,6 +27,8 @@ class Schema(YValSchema):
                 (yInt(), 
                     yString()), 
                 upper = 3)
+    anyDict = yDict(
+                (yAny(), yAny()))
 
 config = {}
 with open("example.yml") as f:

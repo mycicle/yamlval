@@ -1,7 +1,7 @@
 from .BoundedMultiType import BoundedMultiType
 
 from .yEnum import yEnum
-
+from .yAny import yAny
 from loguru import logger
 from typing import Any, List
 
@@ -10,7 +10,11 @@ class yList(BoundedMultiType):
 
     def __init__(self, *types, **bounds):
         super().__init__(*types, **bounds)
-    
+        self.anyInput: bool = False
+        for typ in self.types:
+            if isinstance(typ, yAny):
+                self.anyInput = True
+
     def inbounds(self, inp: List[Any]) -> bool:
         inBounds: bool = True
         if self.lower is not None:
@@ -43,13 +47,18 @@ class yList(BoundedMultiType):
         return output
 
     def matches(self, inp: Any) -> bool:
+
+
         if not isinstance(inp, list):
             logger.error(f"\n \
                 Input <{inp}> is type <{type(inp)}>, expected type {list}\n \
                 see traceback below")
         
-        matchingInternalTypes: bool = self._check_internal_types(inp)
-
+        if self.anyInput:
+            matchingInternalTypes: bool = True
+        else:
+            matchingInternalTypes: bool = self._check_internal_types(inp)
+    
         if not self.inbounds(inp):
             logger.error(f"\n \
                 Input list <{inp}> length is out of bounds:\n \

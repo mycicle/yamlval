@@ -19,7 +19,13 @@ dicti:
           - "AAPL"
           - 2
           - "MSFT"
-  # 4:
-  #   - "whatever":
-  #     "f1": 6
-  #     7: 2
+          - 3
+  # 4: "this will error"
+anyDict: 
+  123: 145
+  "eheheh":
+    - "asdf": 123
+    - 1234134
+    - 1341234: 
+        - "adfasdf"
+        - 1234

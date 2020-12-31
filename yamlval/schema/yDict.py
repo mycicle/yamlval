@@ -1,5 +1,7 @@
 from .BoundedMultiType import BoundedMultiType
 
+from .yAny import yAny
+
 from loguru import logger
 from typing import Any, Dict
 
@@ -8,6 +10,7 @@ class yDict(BoundedMultiType):
 
     def __init__(self, *type_pairs, **bounds):
         super().__init__(*type_pairs, **bounds)
+
     
     def inbounds(self, inp: Dict[Any, Any]) -> bool:
         inBounds: bool = True
@@ -41,16 +44,22 @@ class yDict(BoundedMultiType):
     def _check_internal_types(self, inp: Any) -> bool:
         output: bool = True
         properKeyTypes: bool = False
+        skipValueCheck: bool = False
         for key, value in inp.items():
             for type_pair in self.types:
-                properKeyTypes = type(key) == type_pair[0].__type__
+                properKeyTypes = True if isinstance(type_pair[0], yAny) else type(key) == type_pair[0].__type__
                 if not properKeyTypes:
                     continue
                 else:
-                    if not type_pair[0].matches(key):
-                        output = False
+                    if not isinstance(type_pair[0], yAny):
+                        if not type_pair[0].matches(key):
+                            output = False
                     else:
-                        output = self._check_values(key, value, type_pair)
+                        for member in type_pair[1:]:
+                            if isinstance(member, yAny):
+                                skipValueCheck = True
+                        if not skipValueCheck:
+                            output = self._check_values(key, value, type_pair)
                     break
             
             if not properKeyTypes:
@@ -60,6 +69,7 @@ class yDict(BoundedMultiType):
         return output
 
     def matches(self, inp: Any) -> bool:
+
         if not isinstance(inp, dict):
             logger.error(f"\n \
                 Input <{inp}> is type <{type(inp)}>, expected type {list}\n \
