@@ -1,6 +1,6 @@
 from .BaseType import BaseType
 from enum import EnumMeta
-
+from loguru import logger
 from typing import Set, Any, List
 
 class yEnum(BaseType):
@@ -9,9 +9,9 @@ class yEnum(BaseType):
         Initialze the enum for type checking use
         This will serve as the range of values the field can be
         """
-        self.obj: Any = obj
+        self.obj: EnumMeta = obj
         if not isinstance(self.obj, EnumMeta):
-            raise TypeError(f"Object {self.obj.__name__} is not type Enum")
+            raise TypeError(f"Object {self.obj.__name__} is not type {EnumMeta}")
 
         self.values: List[Any] = []
         for field in self.obj:
@@ -28,4 +28,7 @@ class yEnum(BaseType):
         return true if the input is within the enum given at initialization
         else return false
         """
+        if inp not in self.values:
+            logger.error(f"Input <{inp}> not in <{[var for var in self.get_values()]}> \
+                            see traceback below")
         return inp in self.values
