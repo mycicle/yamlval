@@ -1,3 +1,23 @@
 name: "Michael"
 age: 21
 height: "5'11 3/4"
+listOlists: 
+  - - - "hello"
+      - "sdf"
+      - "asdf"
+      - "asdf"
+    - - "asdfasdf"
+      - "asdfasdf"
+      - 1.
+      - "asdfasdf"
+  - - - "hello"
+      - "sdf"
+      - "asdf"
+      - "asdf"
+    - - "asdfasdf"
+      - "asdfasdf"
+      - 1
+      - "asdfasdf"
+normalList:
+  - "hellothere"
+  - 4
