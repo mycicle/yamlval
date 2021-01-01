@@ -31,10 +31,10 @@ class yList(MultiType):
         # check bounds of inp
         if not self.inbounds(inp):
             match = False
-            err += [f"Input int <{inp}> is out of bounds:\n \
+            err += [f"Input list <{inp}> has length out of bounds:\n \
                 lower: {self.lower if self.lower is not None else 'no lower bound'}\n \
                 upper: {self.upper if self.upper is not None else 'no upper bound'}\n \
-                received: {inp}"]
+                received: {len(inp)}"]
         
         # check internal consistency of children
         # children are the object defining the restrictions placed upon each item 

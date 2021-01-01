@@ -38,7 +38,7 @@ class yString(BoundedType):
             err += [f"Input string <{inp}> has length out of bounds:\n \
                 lower: {self.lower if self.lower is not None else 'no lower bound'}\n \
                 upper: {self.upper if self.upper is not None else 'no upper bound'}\n \
-                received: {inp}"]
+                received: {len(inp)}"]
 
         # return match and the error list if match is false, 
         # return match and None if match is true

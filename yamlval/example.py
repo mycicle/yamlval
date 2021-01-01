@@ -7,6 +7,7 @@ from schema.yFloat import yFloat
 from schema.yString import yString
 from schema.ySchema import ySchema
 from schema.yList import yList
+from schema.yDict
 class Names(Enum):
     mike = "Michael"
 
@@ -17,6 +18,7 @@ class Schema(ySchema):
     listOlists = yList(yList(yList(yString(), yInt())), yInt(), lower=2)
     normalList = yList(yString(lower=2), yInt(upper=10))
     floatingPoint = yFloat(upper=10)
+    dictOstuff = 
     
 with open("example.yml") as f:
     config = Schema.validate_and_load(f)
