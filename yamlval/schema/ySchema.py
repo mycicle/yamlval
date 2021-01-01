@@ -36,12 +36,13 @@ class ySchema(metaclass=ABCMeta):
             matches, err = raw_vars[val_field].matches(raw_config[val_field])
             if not matches:
                 valid = False
+                logger.error(f"In field <{val_field}> expected valid input as per schema <{cls.__name__}>")
                 for error in err:
-                    logger.error(error)
+                    logger.warning(error)
 
         if not valid:
             raise TypeError(
-                    f"In field <{val_field}> expected valid input as per schema <{cls.__name__}>")
+                    f"Invalid inputs found within fields in {list(raw_config.keys())} as per schema <{cls.__name__}>")
         
         return raw_config
 
