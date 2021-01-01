@@ -1,31 +1,3 @@
-field1: "yoyo"
-field2: 100
-yoho: "y!"
-ticker: NULL
-# shouldntBeHere: 7
-someList: 
-  - "Hello"
-  - "How"
-  - ""
-  - 100
-  - 100
-  - 19
-literally:
-anything: {"asdf": 2}
-dicti: 
-  1:  "Hello"
-  "how are you" : 57.
-  "some list": 
-          - "AAPL"
-          - 2
-          - "MSFT"
-          - 3
-  # 4: "this will error"
-anyDict: 
-  123: 145
-  "eheheh":
-    - "asdf": 123
-    - 1234134
-    - 1341234: 
-        - "adfasdf"
-        - 1234
+name: "Michael"
+age: 21
+height: "5'11 3/4"

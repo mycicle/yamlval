@@ -3,6 +3,8 @@ from .BaseType import BaseType
 from typing import Any, List
 class yAny(BaseType):
     __type__: List[Any] = None
+    __has_children__: bool = False
+    
     def __init__(self):
         self.__type__ = self._get_type()
 

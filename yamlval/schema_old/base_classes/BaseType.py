@@ -14,3 +14,7 @@ class BaseType:
     def __type__(self):
         pass
 
+    @property
+    @abstractmethod
+    def __has_children__(self):
+        pass

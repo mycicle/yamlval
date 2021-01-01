@@ -10,9 +10,10 @@ class yList(BoundedMultiType):
 
     def __init__(self, *types, **bounds):
         super().__init__(*types, **bounds)
+        
         self.anyInput: bool = False
-        for typ in self.types:
-            if isinstance(typ, yAny):
+        for child in self.children:
+            if isinstance(child, yAny):
                 self.anyInput = True
 
     def inbounds(self, inp: List[Any]) -> bool:
@@ -28,26 +29,9 @@ class yList(BoundedMultiType):
         return inBounds
     
     def _check_internal_types(self, inp: Any) -> bool:
-        output: bool = True
-        properInternalTypes: bool = False
-        for item in inp:
-            for typ in self.types:
-                properInternalTypes = type(item) in typ.__type__ if isinstance(typ.__type__, list) else type(item) == typ.__type__
-                if not properInternalTypes:
-                    continue
-                else:
-                    if not typ.matches(item):
-                        output = False
-                    break
-
-            if not properInternalTypes:
-                logger.error(f"\n \
-                    The type of item <{item}> is {type(item)}, expected type <{[typ.obj.__name__ if isinstance(typ, yEnum) else type(typ) for typ in self.types ]}>")
-        
-        return output
+        pass
 
     def matches(self, inp: Any) -> bool:
-
 
         if not isinstance(inp, list):
             logger.error(f"\n \
