@@ -21,3 +21,4 @@ listOlists:
 normalList:
   - "hellothere"
   - 4
+floatingPoint: 11.0

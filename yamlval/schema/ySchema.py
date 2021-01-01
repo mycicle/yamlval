@@ -15,6 +15,7 @@ class ySchema(metaclass=ABCMeta):
     def _validate(cls, raw_config: Dict[Any, Any]) -> Dict[Any, Any]:
         raw_vars = vars(cls)
         validation_fields = [var for var in list(raw_vars.keys()) if not callable(getattr(cls, var)) and not var.startswith("__") and not var.startswith("_abc")]
+        valid: bool = True
         config_fields = [field for field in raw_config.keys()]
         for field in config_fields:
             if field not in validation_fields:
@@ -34,10 +35,13 @@ class ySchema(metaclass=ABCMeta):
 
             matches, err = raw_vars[val_field].matches(raw_config[val_field])
             if not matches:
+                valid = False
                 for error in err:
                     logger.error(error)
-                raise TypeError(
-                        f"In field <{val_field}> expected valid input as per schema <{cls.__name__}>")
+
+        if not valid:
+            raise TypeError(
+                    f"In field <{val_field}> expected valid input as per schema <{cls.__name__}>")
         
         return raw_config
 

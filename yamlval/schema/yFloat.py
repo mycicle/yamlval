@@ -1,29 +1,24 @@
-from loguru import logger
-from typing import Any, Tuple, Optional, List
+from schema.base_classes.BoundedType import BoundedType
 
-from .base_classes.BoundedType import BoundedType
-
-class yString(BoundedType):
-    __type__ = str
+from typing import Any, Tuple, List, Optional
+class yFloat(BoundedType):
     __children__ = None
-
+    __type__ = float
     def __init__(self, **bounds):
         super().__init__(**bounds)
-        if self.lower is None:
-            self.lower = 0
-        
-    def inbounds(self, inp: str) -> bool:
+    
+    def inbounds(self, inp: Any) -> bool:
         inBounds: bool = True
         if self.lower is not None:
-            if len(inp) < self.lower:
+            if inp < self.lower:
                 inBounds = False
 
         if self.upper is not None:
-            if len(inp) > self.upper:
+            if inp > self.upper:
                 inBounds = False
         
         return inBounds
-
+    
     def matches(self, inp: Any) -> Tuple[bool, Optional[List[str]]]:
         match: bool = True
         err: List[str] = []
@@ -35,7 +30,7 @@ class yString(BoundedType):
         # check bounds of inp
         if not self.inbounds(inp):
             match = False
-            err += [f"Input string <{inp}> has length out of bounds:\n \
+            err += [f"Input float <{inp}> is out of bounds:\n \
                 lower: {self.lower if self.lower is not None else 'no lower bound'}\n \
                 upper: {self.upper if self.upper is not None else 'no upper bound'}\n \
                 received: {inp}"]
