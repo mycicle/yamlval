@@ -1,11 +1,13 @@
 import setuptools
-from yamlval.__init__ import __version__
+
+name = "yamlval"
+__version__ = "1.0.0"
 
 with open("README.md", "r") as f:
     long_description = f.read()
 
 setuptools.setup(
-    name="yamlval",
+    name=name,
     version=__version__,
     author="Michael DiGregorio",
     author_email="mjm.digregorio@gmail.com",
@@ -14,7 +16,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/mycicle/yamlval",
     packages=setuptools.find_packages(),
-    install_requires=["pyyaml", "loguru"],
+    install_requires=[
+        'pyyaml >= 5.3.1', 
+        'loguru >= 0.5.3'
+    ],
     classifiers=(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",

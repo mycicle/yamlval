@@ -9,8 +9,4 @@ from yamlval.BaseType import BaseType
 from yamlval.BoundedType import BoundedType
 from yamlval.MultiType import MultiType
 
-name="yamlval"
-
-__version__="1.0.0"
-
 __all__ = ["BaseType", "BoundedType", "MultiType", "yDict", "yEnum", "yFloat", "yInt", "yList", "ySchema", "yString"]
