@@ -59,12 +59,12 @@ class yDict(MultiType):
                     raise ValueError(f"{type(child)} does not support indexing, make sure that the key-value arguments to yDict are wrapped in a tuple!")
                 
                 if isinstance(child_key, yEnum):
-                    raise TypeError(f"Enums within yDict keys are not currently supported")
+                    raise TypeError(f"Enums within yDict keys are not currently supported. I suggest adding the types expected within the enum as valid key types for the yDict and then checking validity later on.")
 
                 child_values = tuple(child[1:])
                 for val in child_values:
                     if isinstance(val, yEnum):
-                        raise TypeError(f"Enums within yDict values are not currently supported")
+                        raise TypeError(f"Enums within yDict values are not currently supported. I suggest adding the types expected within the enum as valid value types for the yDict and then checking validity later on.")
 
                 child_values_types = tuple([typ.__type__ for typ in child_values])
                 acceptableKeyTypes.append(child_key.__type__)
@@ -81,7 +81,7 @@ class yDict(MultiType):
                     try:
                         matching_child_value = child_values[child_values_types.index(type(value))]
                     except Exception as exc:
-                        raise ValueError(f"{exc}\nEnums within yDict values are not currently supported")
+                        raise ValueError(f"{exc}\nEnums within yDict values are not currently supported. I suggest adding the types expected within the enum as valid value types for the yDict and then checking validity later on.")
                     foundProperValueChild = True
                     matches_child, error = matching_child_value.matches(value)
                     if not matches_child:
