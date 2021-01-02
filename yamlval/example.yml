@@ -1,6 +1,6 @@
-name: "Michael"
+name: "Michaell"
 age: 21
-height: "5'11 3/4"
+height: "5'11 3/4extrachars"
 listOlists: 
   - - - "hello"
       - "sdf"
@@ -8,7 +8,7 @@ listOlists:
       - "asdf"
     - - "asdfasdf"
       - "asdfasdf"
-      - 1
+      - 1.
       - "asdfasdf"
   - - - "hello"
       - "sdf"
@@ -26,8 +26,9 @@ dictOstuff:
   Michael: 
     "string1" : "string2"
   1: 
-    - - "string1"
+    - - "string123"
       - "asdf"
-    - - "as"
-      - "as"
+      - "asdf"
+    - - "asdfasdfasdf"
+      - "asdfasdfadsf"
   somewords: "some more words"
