@@ -8,7 +8,7 @@ listOlists:
       - "asdf"
     - - "asdfasdf"
       - "asdfasdf"
-      - 1.
+      - 1
       - "asdfasdf"
   - - - "hello"
       - "sdf"
@@ -21,4 +21,13 @@ listOlists:
 normalList:
   - "hellothere"
   - 4
-floatingPoint: 11.0
+floatingPoint: 9.
+dictOstuff:
+  Michael: 
+    "string1" : "string2"
+  1: 
+    - - "string1"
+      - "asdf"
+    - - "as"
+      - "as"
+  somewords: "some more words"

@@ -52,7 +52,7 @@ class yList(MultiType):
                     if not matches_child:
                         match = False
                         err += error
-
+            
             if not foundProperChild:
                 match = False
                 err += [f"Improper type for item <{item}>. Expected type {acceptableTypes}. Recieved type {type(item)}"]

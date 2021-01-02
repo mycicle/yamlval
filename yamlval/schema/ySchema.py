@@ -42,7 +42,7 @@ class ySchema(metaclass=ABCMeta):
 
         if not valid:
             raise TypeError(
-                    f"Invalid inputs found within fields in {list(raw_config.keys())} as per schema <{cls.__name__}>")
+                    f"Invalid inputs found as per schema <{cls.__name__}>")
         
         return raw_config
 

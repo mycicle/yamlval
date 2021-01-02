@@ -2,7 +2,7 @@ from loguru import logger
 from typing import List, Any, Tuple, Optional, Dict
 
 from schema.base_classes.MultiType import MultiType
-
+from schema.yEnum import yEnum
 class yDict(MultiType):
     __type__ = dict
     def __init__(self, *children, **bounds):
@@ -45,7 +45,6 @@ class yDict(MultiType):
         #   (yInt(), yString(), yList(...))
         #   (yEnum(), yList(...), yString(), yInt())
         # )
-
         # check out the keys
         for key, value in inp.items():
             acceptableKeyTypes: List[Any] = []
@@ -54,9 +53,20 @@ class yDict(MultiType):
             acceptableValueTypes: List[Any] = []
             foundProperValueChild: bool = False
             for child in self.__children__:
-                child_key = child[0]
+                try:
+                    child_key = child[0]
+                except TypeError as te:
+                    raise ValueError(f"{type(child)} does not support indexing, make sure that the key-value arguments to yDict are wrapped in a tuple!")
+                
+                if isinstance(child_key, yEnum):
+                    raise TypeError(f"Enums within yDict keys are not currently supported")
+
                 child_values = tuple(child[1:])
-                child_values_types = [typ.__type__ for typ in child_values]
+                for val in child_values:
+                    if isinstance(val, yEnum):
+                        raise TypeError(f"Enums within yDict values are not currently supported")
+
+                child_values_types = tuple([typ.__type__ for typ in child_values])
                 acceptableKeyTypes.append(child_key.__type__)
                 acceptableValueTypes.append(child_values_types)
 
@@ -68,7 +78,10 @@ class yDict(MultiType):
                         err += error
                 
                 if isinstance(value, child_values_types):
-                    matching_child_value = child_values[child_values_types.index(type(value))]
+                    try:
+                        matching_child_value = child_values[child_values_types.index(type(value))]
+                    except Exception as exc:
+                        raise ValueError(f"{exc}\nEnums within yDict values are not currently supported")
                     foundProperValueChild = True
                     matches_child, error = matching_child_value.matches(value)
                     if not matches_child:
