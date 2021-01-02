@@ -1,12 +1,12 @@
-from .BaseType import BaseType
 from enum import EnumMeta
 from loguru import logger
-from typing import Set, Any, List
+from typing import List, Any, Set, Tuple, Optional
+
+from .BaseType import BaseType
 
 class yEnum(BaseType):
-    __type__: List[Any] = None
-    __has_children: bool = False
-    
+    __type__ = None
+    __children__ = None
     def __init__(self, obj: EnumMeta):
         """
         Initialze the enum for type checking use
@@ -26,7 +26,7 @@ class yEnum(BaseType):
         output: List[Any] = []
         for val in self.values:
             output.append(type(val))
-        return output
+        return tuple(output)
         
     def get_values(self) -> Set[Any]:
         """
@@ -34,13 +34,22 @@ class yEnum(BaseType):
         """
         return set(self.values)
 
-    def matches(self, inp: Any) -> bool:  
+    def matches(self, inp: Any) -> Tuple[bool, Optional[List[str]]]:  
         """
         return true if the input is within the enum given at initialization
         else return false
         """
+        match: bool = True
+        err: List[str] = []
+        # check type of inp
+        if not isinstance(inp, self.__type__):
+            match = False
+            err += [f"Input {inp} is type {type(inp)}, expected type {self.__type__}"]
+        
+        # check that input is within the enum
         if inp not in self.values:
-            logger.error(f"\n \
-                Input <{inp}> not in <{[var for var in self.get_values()]}>\n \
-                see traceback below")
-        return inp in self.values
+            match = False
+            err += [f"Input <{inp}> not in <{[var for var in self.get_values()]}>\n \
+                see traceback below"]
+
+        return (match, err if not match else None)

@@ -1,8 +1,8 @@
 from loguru import logger
 from typing import List, Any, Tuple, Optional, Dict
 
-from schema.base_classes.MultiType import MultiType
-from schema.yEnum import yEnum
+from .MultiType import MultiType
+from .yEnum import yEnum
 class yDict(MultiType):
     __type__ = dict
     def __init__(self, *children, **bounds):

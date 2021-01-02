@@ -1,9 +1,10 @@
-from schema.base_classes.BoundedType import BoundedType
-
 from typing import Any, Tuple, List, Optional
-class yInt(BoundedType):
+
+from .BoundedType import BoundedType
+
+class yFloat(BoundedType):
     __children__ = None
-    __type__ = int
+    __type__ = float
     def __init__(self, **bounds):
         super().__init__(**bounds)
     
@@ -30,7 +31,7 @@ class yInt(BoundedType):
         # check bounds of inp
         if not self.inbounds(inp):
             match = False
-            err += [f"Input int <{inp}> is out of bounds:\n \
+            err += [f"Input float <{inp}> is out of bounds:\n \
                 lower: {self.lower if self.lower is not None else 'no lower bound'}\n \
                 upper: {self.upper if self.upper is not None else 'no upper bound'}\n \
                 received: {inp}"]

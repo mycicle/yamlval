@@ -1,7 +1,7 @@
 from loguru import logger
 from typing import List, Any, Tuple, Optional
 
-from schema.base_classes.MultiType import MultiType
+from .MultiType import MultiType
 
 class yList(MultiType):
     __type__ = list
