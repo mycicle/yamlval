@@ -65,8 +65,7 @@ print(config)
 ```
 
 ## Longer Example
-- This is an example of a .yml or .yaml file not matching the config, run this to 
-get a feel for the errors thrown by the system. 
+- This is an example of a .yml or .yaml file which does not match the config, run this to get a feel for the errors thrown by the system. 
 - Notice that most validation errors are logged before an exception is raised, letting you see a large number of validation errors simultaneously, saving you important time. 
 
 ```yaml
