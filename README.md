@@ -179,6 +179,49 @@ with open("example.yml") as f:
 
 print(config)
 ```
+### You can also call yObject.match() method to validate separately!
+- If you do not want to make an entire schema, want to just validate tehe type of an object, or want to validate to a degree above what yamlval can do by default, you can define a yObject and then call the .matches() method separately!
+
+- For example, lets say you have a string = stringToCheck, and you want to check if it's part of an enum, you can define checker = yEnum(EnumName) and then call checker.matches(stringToCheck). This will return a tuple matching the following format:
+- Tuple[bool, Optional[List[str]]] = (match, err if not match else None)
+- Translation: a tuple with a true/false value for the match at the 0th index, and a list of strings containing the caught errors (if there are any) or 'None' (if there are no errors) at the 1st index.
+
+```python
+from yamlval import yEnum
+
+from enum import Enum
+
+class Names(Enum):
+    mike = "Michael"
+
+checker = yEnum(Names)
+stringToCheck = "Michaelll"
+(match, err) = checker.matches(stringToCheck)
+if not match:
+    print(err)
+```
+
+will yield
+
+```
+["Input <Michaelll> not in <['Michael']>"]
+```
+
+you can also iterate through all validation errors in err and then print them separately to get a nicer looking output for multiple validation errors.
+
+```python 
+checker = yEnum(Names)
+stringToCheck = "Michaelll"
+(match, err) = checker.matches(stringToCheck)
+if not match:
+    for error in err:
+        print(error)
+```
+
+This will work for any of the yObject types (yDict, yList, yString, yInt, ...)
+and is actually the foundation of the internal implementation of yamlval.
+
+
 
 If you find any errors, bugs, or simply want to contribute, let me know at mjm.digregorio@gmail.com !
 

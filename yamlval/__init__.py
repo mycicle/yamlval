@@ -8,5 +8,6 @@ from yamlval.yString import yString
 from yamlval.BaseType import BaseType
 from yamlval.BoundedType import BoundedType
 from yamlval.MultiType import MultiType
-
-__all__ = ["BaseType", "BoundedType", "MultiType", "yDict", "yEnum", "yFloat", "yInt", "yList", "ySchema", "yString"]
+from yamlval.yAny import yAny
+from yamlval.yNone import yNone
+__all__ = ["BaseType", "BoundedType", "MultiType", "yDict", "yEnum", "yFloat", "yInt", "yList", "ySchema", "yString", "yAny", "yNone"]

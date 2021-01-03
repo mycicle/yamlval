@@ -49,7 +49,6 @@ class yEnum(BaseType):
         # check that input is within the enum
         if inp not in self.values:
             match = False
-            err += [f"Input <{inp}> not in <{[var for var in self.get_values()]}>\n \
-                see traceback below"]
+            err += [f"Input <{inp}> not in <{[var for var in self.get_values()]}>"]
 
         return (match, err if not match else None)
