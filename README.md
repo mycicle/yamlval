@@ -207,7 +207,7 @@ will yield
 ["Input <Michaelll> not in <['Michael']>"]
 ```
 
-you can also iterate through all validation errors in err and then print them separately to get a nicer looking output for multiple validation errors.
+You can also iterate through all validation errors in err and then print them separately to get a nicer looking output for multiple validation errors.
 
 ```python 
 checker = yEnum(Names)
@@ -221,7 +221,7 @@ if not match:
 This will work for any of the yObject types (yDict, yList, yString, yInt, ...)
 and is actually the foundation of the internal implementation of yamlval.
 
-
+==========================================================================
 
 If you find any errors, bugs, or simply want to contribute, let me know at mjm.digregorio@gmail.com !
 
