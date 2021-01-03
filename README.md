@@ -11,7 +11,7 @@ Python tool used to easily define a schema for a yaml file. Yamlval allows users
     yDict( (yKeyType, yValueType1, yValueType2, ...), (yKeyType, yValueType1, yValueType2, ...), ...  )
     ```
     Happy Validating!
-    
+
 ## Example
 ```yaml
 ticker: "AAPL"
@@ -64,3 +64,116 @@ with open("example.yml", "r") as f:
 print(config) 
 ```
 
+## Longer Example
+- This is an example of a .yml or .yaml file not matching the config, run this to 
+get a feel for the errors thrown by the system. 
+- Notice that most validation errors are logged before an exception is raised, letting you see a large number of validation errors simultaneously, saving you important time. 
+
+```yaml
+name: "Michaell"
+age: 21
+height: "5'11 3/4extrachars"
+listOlists: 
+  - - - "hello"
+      - "sdf"
+      - "asdf"
+      - "asdf"
+    - - "asdfasdf"
+      - "asdfasdf"
+      - 1.
+      - "asdfasdf"
+  - - - "hello"
+      - "sdf"
+      - "asdf"
+      - "asdf"
+    - - "asdfasdf"
+      - "asdfasdf"
+      - 1
+      - "asdfasdf"
+normalList:
+  - "hellothere"
+  - 4
+floatingPoint: 9.
+dictOstuff:
+  Michael: 
+    "string1" : "string2"
+  1: 
+    - - "string123"
+      - "asdf"
+      - "asdf"
+    - - "asdfasdfasdf"
+      - "asdfasdfadsf"
+  somewords: "some more words"
+
+anyDict: 
+  asdf: 5
+  6: "eight"
+  NULL: NULL
+
+noneDict:
+  asdf: NULL
+  5.5: NULL
+  5: NULL
+
+anyList: 
+  - "asdf"
+  - 5
+  - 5.5
+  - NULL
+
+noneList:
+  - NULL
+  - NULL
+  - NULL
+
+noneListPlus:
+  - NULL
+  - 5.5
+  - 5
+  - NULL
+  - "string from yamlval here"
+```
+
+```python
+from yamlval import yString, yList, yEnum, yDict, yInt, yFloat, ySchema, yAny, yNone
+
+from enum import Enum
+
+class Names(Enum):
+    mike = "Michael"
+
+class Schema(ySchema):
+    name = yEnum(Names)
+    age = yInt(lower=0, upper=120)
+    height = yString(lower=3, upper=8)
+    listOlists = yList(yList(yList(yString(), yInt())), yInt(), lower=2)
+    normalList = yList(yString(lower=2), yInt(upper=10))
+    floatingPoint = yFloat(upper=10)
+    dictOstuff = yDict(
+        (yString(), yInt(), yDict((yString(), yString()))),
+        (yInt(upper=2), yList(yList(yString(upper=7), upper=2))),
+        (yString(), yString()),
+    )
+    anyDict = yDict(
+        (yAny(), yInt(), yString())
+    )
+    noneDict = yDict(
+        (yAny(), yNone())
+    )
+    anyList = yList(yAny())
+    noneList = yList(yNone())
+    noneListPlus = yList(yNone(), yFloat())
+    
+with open("example.yml") as f:
+    config = Schema.validate_and_load(f)
+
+print(config)
+```
+
+If you find any errors, bugs, or simply want to contribute, let me know at mjm.digregorio@gmail.com !
+
+You can also initiate a pull request!
+
+- Mike
+
+Happy Validating!
