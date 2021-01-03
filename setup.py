@@ -1,7 +1,7 @@
 import setuptools
 
 name = "yamlval"
-__version__ = "1.0.0"
+__version__ = "v1.0.0"
 
 with open("README.md", "r") as f:
     long_description = f.read()
