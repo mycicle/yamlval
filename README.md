@@ -78,7 +78,7 @@ print(config)
 - Requirements for example:
     - python >= 3.6
     - yamlval
-    
+
 ```yaml
 name: "Michaell"
 age: 21
@@ -184,6 +184,6 @@ If you find any errors, bugs, or simply want to contribute, let me know at mjm.d
 
 You can also initiate a pull request!
 
-- Mike
+\- Mike
 
 Happy Validating!
