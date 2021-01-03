@@ -1,5 +1,6 @@
 # yamlval
-Python tool used to easily define a schema for a yaml file. Yamlval allows users to define types for yaml fields and will throw clear and will generate clear and transparent logs for debugging
+Python tool used to easily define a schema for a yaml file. Yamlval allows users to define types for yaml fields and will generate clear and transparent logs for debugging.
+It's the yaml type validator of your dreams!
 
 ## If you're skimming this then read these next few points to save yourself a lot of headache
     - Do not use enums in yDict, it will not work, you will get an error
