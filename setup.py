@@ -14,6 +14,7 @@ setuptools.setup(
     description="A YAML type validator",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/mycicle/yamlval/",
     download_url="https://github.com/mycicle/yamlval/archive/v1.0.0.tar.gz",
     packages=setuptools.find_packages(),
     install_requires=[
