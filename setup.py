@@ -1,7 +1,7 @@
 import setuptools
 
 name = "yamlval"
-__version__ = "v1.0.0"
+__version__ = "v1.0.1"
 
 with open("README.md", "r") as f:
     long_description = f.read()
@@ -15,7 +15,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/mycicle/yamlval/",
-    download_url="https://github.com/mycicle/yamlval/archive/v1.0.0.tar.gz",
+    download_url="https://github.com/mycicle/yamlval/archive/v1.0.1.tar.gz",
     packages=setuptools.find_packages(),
     install_requires=[
         'pyyaml >= 5.3.1', 
