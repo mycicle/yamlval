@@ -41,20 +41,21 @@ class yList(MultiType):
         # of input
 
         # yList(yList(...), yString(), yInt, yDict(...))
-        for item in inp:
-            acceptableTypes: List[Any] = []
-            foundProperChild: bool = False
-            for child in self.__children__:
-                acceptableTypes.append(child.__type__)
-                if isinstance(item, child.__type__):
-                    foundProperChild = True
-                    matches_child, error = child.matches(item)
-                    if not matches_child:
-                        match = False
-                        err += error
+        if not self.__anyType__:
+            for item in inp:
+                acceptableTypes: List[Any] = []
+                foundProperChild: bool = False
+                for child in self.__children__:
+                    acceptableTypes.append(child.__type__)
+                    if isinstance(item, child.__type__):
+                        foundProperChild = True
+                        matches_child, error = child.matches(item)
+                        if not matches_child:
+                            match = False
+                            err += error
+                
+                if not foundProperChild:
+                    match = False
+                    err += [f"Improper type for item <{item}>. Expected type {acceptableTypes}. Recieved type {type(item)}"]
             
-            if not foundProperChild:
-                match = False
-                err += [f"Improper type for item <{item}>. Expected type {acceptableTypes}. Recieved type {type(item)}"]
-        
         return (match, err if not match else None)

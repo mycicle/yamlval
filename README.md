@@ -1,6 +1,17 @@
 # yamlval
 Python tool used to easily define a schema for a yaml file. Yamlval allows users to define types for yaml fields and will throw clear and will generate clear and transparent logs for debugging
 
+## If you're skimming this then read these next few points to save yourself a lot of headache
+    - Do not use enums in yDict, it will not work, you will get an error
+    - Do not use mutliple enums in yList, just make one large enum or you will get an error
+    - yAny is true for everything EXCEPT None
+    - yNone is true for ONLY None
+    - yDict takes tuples of yObjects as inputs, i.e 
+    ```
+    yDict( (yKeyType, yValueType1, yValueType2, ...), (yKeyType, yValueType1, yValueType2, ...), ...  )
+    ```
+    Happy Validating!
+    
 ## Example
 ```yaml
 ticker: "AAPL"
@@ -52,3 +63,4 @@ with open("example.yml", "r") as f:
     config = Schema.validate_and_load(f)
 print(config) 
 ```
+
